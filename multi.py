@@ -25,7 +25,7 @@ def wygrana_plus(ilosc_trafionych, liczby_trafione, ilosc_typowanych):
         return 0
 def beben():
     while True:
-        x = randint(1,81)
+        x = randint(1,80)
         if x in beben_maszyny:
             continue
         beben_maszyny.append(x)
