@@ -11,7 +11,7 @@ def sprawdzenie(kupon, ilosc_typowanych):
     global suma_wygranych_plus
     suma_wygranych += wygrana(ilosc_trafionych, ilosc_typowanych)
     suma_wygranych_plus += wygrana_plus(ilosc_trafionych, liczby_trafione, ilosc_typowanych)
-    #return print("Ilosc trafionych liczb", ilosc_trafionych, "\nTrafione liczby to", liczby_trafione,"\nWartosc wygranej:", wygrana(ilosc_trafionych, ilosc_typowanych),"\nWartosc wygranej z plusem:", wygrana_plus(ilosc_trafionych, liczby_trafione, ilosc_typowanych))
+    return print("Ilosc trafionych liczb", ilosc_trafionych, "\nTrafione liczby to", liczby_trafione,"\nWartosc wygranej:", wygrana(ilosc_trafionych, ilosc_typowanych),"\nWartosc wygranej z plusem:", wygrana_plus(ilosc_trafionych, liczby_trafione, ilosc_typowanych))
 def wygrana(ilosc_trafionych, ilosc_typowanych):
     if ilosc_trafionych < 4:
         return 0
@@ -44,6 +44,29 @@ def generator_kuponow(ilosc_typowanych):
             #print("-------------------------------------------------")
         if len(beben_maszyny) in [2,3,8]:
             extra_ilosc_typowanych = len(beben_maszyny)
+            extra_kupon = [beben_maszyny.pop() for i in range(len(beben_maszyny))]
+            sprawdzenie(extra_kupon, extra_ilosc_typowanych)
+        else:
+            extra_kupon = "Nie zostal wygenerowany"
+def alt_generator(ilosc_typowanych):
+    if ilosc_typowanych > 0 and ilosc_typowanych < 11:
+        global liczba_kuponow
+        liczba_kuponow = 80 // ilosc_typowanych
+        for k in range(1, liczba_kuponow + 1):
+            kupon = []
+            for i in range(ilosc_typowanych):
+                x = beben_maszyny[randint(0,79)]
+                if x not in kupon:
+                    kupon.append(x)
+                else:
+                    continue
+            print("-------------------------------------------------")
+            print("Kupon nr:", k,"\n", kupon)
+            sprawdzenie(kupon, ilosc_typowanych)
+            print("Ilosc Liczb w bebnie maszyny losujacej:", len(beben_maszyny))
+            print("-------------------------------------------------")
+        if len(beben_maszyny) in [2,3,8]:
+            extra_ilosc_typowanych = len(beben_maszyny)
             global extra_kupon
             extra_kupon = [beben_maszyny.pop() for i in range(len(beben_maszyny))]
             sprawdzenie(extra_kupon, extra_ilosc_typowanych)
@@ -51,7 +74,7 @@ def generator_kuponow(ilosc_typowanych):
             extra_kupon = "Nie zostal wygenerowany"
 #definicje zmiennych            
 plus = 13
-ilosc_typowanych = 10
+ilosc_typowanych = 7
 suma_wygranych = 0
 suma_wygranych_plus = 0
 koszt_kuponu = 2.5
@@ -65,13 +88,14 @@ wygrane_plus = {1:{1:88},2:{1:24,2:120},3:{1:18,2:28,3:214},4:{1:16,2:16,3:48,4:
 #wywolywanie funkcji
 if __name__ == "__main__":
     beben()
-    generator_kuponow(ilosc_typowanych)
+    #generator_kuponow(ilosc_typowanych)
+    alt_generator(ilosc_typowanych)
 
 
                   
-print("===========")
+print("===========################")
 print("Suma wygranych", suma_wygranych, "\nSuma wygranych z plusem", suma_wygranych_plus)
-print("===========")
+print("===========################")
 print("Ilosc typowanych liczb:",ilosc_typowanych)
 print("Ilosc kupionych kuponow:",liczba_kuponow)
 print("===========")
